@@ -23,14 +23,14 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author ge
  * @since 2023-10-17
  */
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/api/users")
 public class UserController {
     @Autowired
@@ -43,7 +43,7 @@ public class UserController {
     private StudentsService studentsService;
 
     @GetMapping("/list")
-    public List<User> list(){
+    public List<User> list() {
         return userService.list();
     }
 
@@ -55,45 +55,43 @@ public class UserController {
 
     //add
     @PostMapping("/save")
-    public boolean save(@RequestBody User user){
+    public boolean save(@RequestBody User user) {
         return userService.save(user);
     }
+
     //fix
     @PostMapping("/mod")
-    public boolean mod(@RequestBody User user){
+    public boolean mod(@RequestBody User user) {
         return userService.updateById(user);
     }
+
     //add or fix
     @PostMapping("/saveOrMod")
-    public boolean saveOrMod(@RequestBody User user){
+    public boolean saveOrMod(@RequestBody User user) {
         return userService.saveOrUpdate(user);
     }
+
     //delete
     @GetMapping("/delete")
-    public boolean delete(Integer id){
+    public boolean delete(Integer id) {
         return userService.removeById(id);
+
     }
     //query
 
     //login
     @PostMapping("/{id}/pwd")
-    public Result msg(@RequestBody User user){
-        List<User> list = userService.lambdaQuery()
-                .eq(User::getId,user.getId())
-                .eq(User::getPassword,user.getPassword()).list();
-        if(list.size()<=0)
-            return Result.fail();
-        LinkedHashMap usermap=new LinkedHashMap<>();
-        usermap.put("roleId",list.get(0).getRoleId());
-        if(list.get(0).getRoleId()==1){
-            List<Students> stulist=studentsService.lambdaQuery()
-                    .eq(Students::getId,user.getId()).list();
-            usermap.put("userName",stulist.get(0).getName());
-        }
-        else {
-            List<Teachers> tealist = teachersService.lambdaQuery()
-                    .eq(Teachers::getId, user.getId()).list();
-            usermap.put("userName",tealist.get(0).getName());
+    public Result msg(@RequestBody User user) {
+        List<User> list = userService.lambdaQuery().eq(User::getId, user.getId()).eq(User::getPassword, user.getPassword()).list();
+        if (list.size() <= 0) return Result.fail();
+        LinkedHashMap usermap = new LinkedHashMap<>();
+        usermap.put("roleId", list.get(0).getRoleId());
+        if (list.get(0).getRoleId() == 1) {
+            List<Students> stulist = studentsService.lambdaQuery().eq(Students::getId, user.getId()).list();
+            usermap.put("userName", stulist.get(0).getName());
+        } else {
+            List<Teachers> tealist = teachersService.lambdaQuery().eq(Teachers::getId, user.getId()).list();
+            usermap.put("userName", tealist.get(0).getName());
         }
 
         return Result.suc(usermap);
@@ -138,39 +136,39 @@ public class UserController {
     }*/
 
     @PostMapping("/listPageC")
-    public List<User> listPageC(@RequestBody QueryPageParam query){
+    public List<User> listPageC(@RequestBody QueryPageParam query) {
         HashMap param = query.getParam();
-        String name=(String)param.get("name");
+        String name = (String) param.get("name");
 
         Page<User> page = new Page<>();
         page.setCurrent(query.getPageNum());
         page.setSize(query.getPageSize());
 
-        LambdaQueryWrapper<User> lambdaQueryWrapper=new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.like(User::getId,name);
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.like(User::getId, name);
 
-        IPage result = userService.pageCC(page,lambdaQueryWrapper);
+        IPage result = userService.pageCC(page, lambdaQueryWrapper);
 
-        System.out.println("total=="+result.getTotal());
+        System.out.println("total==" + result.getTotal());
 
         return result.getRecords();
     }
 
     @PostMapping("/listPageC1")
-    public Result listPageC1(@RequestBody QueryPageParam query){
+    public Result listPageC1(@RequestBody QueryPageParam query) {
         Map param = query.getParam();
-        String name=(String)param.get("name");
+        String name = (String) param.get("name");
 
         Page<User> page = new Page<>();
         page.setCurrent(query.getPageNum());
         page.setSize(query.getPageSize());
 
-        LambdaQueryWrapper<User> lambdaQueryWrapper=new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.like(User::getId,name);
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.like(User::getId, name);
 
-        IPage result = userService.pageCC(page,lambdaQueryWrapper);
+        IPage result = userService.pageCC(page, lambdaQueryWrapper);
 
-        System.out.println("total=="+result.getTotal());
+        System.out.println("total==" + result.getTotal());
 
         return Result.suc(result.getRecords());
     }

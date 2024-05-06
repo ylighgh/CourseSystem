@@ -1,6 +1,7 @@
 package com.example.project.controller;
 
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-11-01
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/students")
 public class StudentsController {
 

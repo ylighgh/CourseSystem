@@ -26,6 +26,7 @@ import java.util.HashMap;
  * @since 2023-10-24
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/score")
 public class SelectedCoursesController {
     @Autowired

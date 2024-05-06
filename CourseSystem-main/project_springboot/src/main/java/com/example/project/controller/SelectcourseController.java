@@ -33,6 +33,7 @@ import static java.sql.Types.NULL;
  * @since 2023-10-21
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class SelectcourseController {
     private static final Logger logger = LoggerFactory.getLogger(SelectcourseController.class);

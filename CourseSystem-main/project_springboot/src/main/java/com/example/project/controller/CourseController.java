@@ -24,6 +24,7 @@ import java.util.List;
  * 课程控制器
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/course")
 public class CourseController {
     @Autowired

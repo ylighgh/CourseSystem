@@ -6,11 +6,7 @@ import com.example.project.entity.CurrentCourses;
 import com.example.project.entity.User;
 import com.example.project.service.CurrentCoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +19,7 @@ import java.util.List;
  * @since 2023-10-23
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/current-courses")
 public class CurrentCoursesController {
     @Autowired

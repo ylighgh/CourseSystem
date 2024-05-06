@@ -24,6 +24,7 @@ import java.util.List;
  * @since 2023-10-23
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api/teachers")
 public class TeachersController {
     @Autowired
