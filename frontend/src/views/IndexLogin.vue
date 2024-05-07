@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       userId: "",
-      password: "123456",
+      password: "",
       userName: "default",
       host: "http://127.0.0.1:9000",
     };
@@ -106,11 +106,13 @@ export default {
         // 处理登录成功后的逻辑
         ElMessage.success("登录成功");
         console.log("登录成功", response.data.data.roleId);
-        if (response.data.data.roleId === 1) {
+        if (response.data.data.roleId === 1 ) {
           this.$router.push({ name: 'students', params: { userId: id, userName: response.data.data.userName } });
         }
-        else {
+        else if (response.data.data.roleId === 2 && response.data.data.userName != "admin") {
           this.$router.push({ name: 'teachers', params: { userId: id, userName: response.data.data.userName } });
+        } else if (response.data.data.userName === "admin") {
+          this.$router.push({ name: 'admin', params: { userId: id, userName: response.data.data.userName } });
         }
 
       }
